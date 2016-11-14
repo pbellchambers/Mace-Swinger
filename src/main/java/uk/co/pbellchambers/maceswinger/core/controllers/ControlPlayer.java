@@ -1,6 +1,7 @@
 package uk.co.pbellchambers.maceswinger.core.controllers;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.magnos.entity.Control;
 import org.magnos.entity.Entity;
 import org.magnos.entity.vals.IntVal;
@@ -15,10 +16,11 @@ public class ControlPlayer implements Control {
 		Vector2 velocity = e.get(Core.Components.velocity);
 		Vector2 pos = e.get(Components.position);
 		IntVal direction = e.get(Components.direction);
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-			Jump.jump(e, updateState, velocity);
-		if (Keyboard.isKeyDown(Keyboard.KEY_X)) {
-			//Attack.attack(e, updateState, direction);
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            Jump.jump(e, updateState, velocity);
+        }
+		if (Mouse.isButtonDown(0)) {
+			Attack.attack(e, updateState, direction);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)){ 
 			velocity.x -= 0.5f;

@@ -7,10 +7,9 @@ import org.magnos.entity.vals.IntVal;
 import uk.co.pbellchambers.maceswinger.Vector2;
 import uk.co.pbellchambers.maceswinger.client.GameClient;
 import uk.co.pbellchambers.maceswinger.core.Core;
-import uk.co.pbellchambers.maceswinger.items.Item;
 
 public class Attack {
-	public static void attack(Entity e, Object updateState, Item heldItem, IntVal direction)//0 left, 1 right
+	public static void attack(Entity e, Object updateState, IntVal direction)//0 left, 1 right
 	{
 		if (!e.has(Core.Components.attackCooldown))
 			return;
