@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'com.stehno.natives'
+apply plugin:'application'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "gradle.plugin.com.stehno:gradle-natives:0.3.0"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.22'
+    compile group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
+    compile group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
+    compile group: 'com.miglayout', name: 'miglayout-swing', version: '4.2'
+    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.1'
+    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.1'
+
+    compile fileTree(dir: 'src/main/resources/lib', include: ['*.jar'])
+    compile fileTree(dir: 'src/main/resources/lib/launcher', include: ['*.jar'])
+}
+
+listNatives
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'uk.co.pbellchambers.maceswinger.client.GameClient'
+    }
+}
+
+mainClassName = 'uk.co.pbellchambers.maceswinger.client.GameClient'
