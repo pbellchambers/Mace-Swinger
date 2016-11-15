@@ -1,5 +1,7 @@
 #Credits
-The Mace Swinger team:
+Forked and Modified by https://github.com/pbellchambers
+
+**The Original Mace Swinger team:**
 
 * [moomoohk](https://twitter.com/moomoohk), project lead and programmer
 * [Puddleduck](https://twitter.com/TDP_Puddleduck), community manager
