@@ -4,30 +4,26 @@ import uk.co.pbellchambers.maceswinger.client.GameClient;
 import uk.co.pbellchambers.maceswinger.client.render.AnimationRenderer;
 import uk.co.pbellchambers.maceswinger.server.GameServer;
 
-public class MessageSetRenderer extends Message
-{
-	int eid;
-	String spritesheet;
+public class MessageSetRenderer extends Message {
 
-	public MessageSetRenderer()
-	{
-	}
+    int eid;
+    String spritesheet;
 
-	public MessageSetRenderer(int eid, String spritesheet)
-	{
-		this.eid = eid;
-		this.spritesheet = spritesheet;
-	}
+    public MessageSetRenderer() {
+    }
 
-	@Override
-	public void runClient(GameClient c)
-	{
-		System.out.println(eid + " " + spritesheet);
-		c.entities.at(eid).setRenderer(new AnimationRenderer(spritesheet));
-	}
+    public MessageSetRenderer(int eid, String spritesheet) {
+        this.eid = eid;
+        this.spritesheet = spritesheet;
+    }
 
-	@Override
-	public void runServer(GameServer s)
-	{
-	}
+    @Override
+    public void runClient(GameClient c) {
+        System.out.println(eid + " " + spritesheet);
+        c.entities.at(eid).setRenderer(new AnimationRenderer(spritesheet));
+    }
+
+    @Override
+    public void runServer(GameServer s) {
+    }
 }

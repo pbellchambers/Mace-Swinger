@@ -1,6 +1,5 @@
 package uk.co.pbellchambers.maceswinger.utils;
 
-
 import uk.co.pbellchambers.maceswinger.Resources;
 
 import java.io.BufferedReader;
@@ -10,9 +9,8 @@ import java.io.InputStreamReader;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
 
-
 public class ShaderLoader {
-    
+
     public static int loadShaderPair() {
         int shaderProgram = glCreateProgram();
         int vertexShader = glCreateShader(GL_VERTEX_SHADER);

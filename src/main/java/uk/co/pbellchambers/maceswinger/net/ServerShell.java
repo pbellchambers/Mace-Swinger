@@ -2,17 +2,17 @@ package uk.co.pbellchambers.maceswinger.net;
 
 import uk.co.pbellchambers.maceswinger.server.Client;
 
-public interface ServerShell
-{
-	public void clientConnected(Client c);
+public interface ServerShell {
 
-	public void clientDisconnected(Client c);
+    public void clientConnected(Client c);
 
-	public void serverStarted(int port);
+    public void clientDisconnected(Client c);
 
-	public void serverStopped();
+    public void serverStarted(int port);
 
-	public void message(Client c, String message);
+    public void serverStopped();
 
-	public void portInUse(int port);
+    public void message(Client c, String message);
+
+    public void portInUse(int port);
 }

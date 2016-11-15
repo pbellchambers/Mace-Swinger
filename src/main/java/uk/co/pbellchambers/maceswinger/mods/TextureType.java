@@ -1,21 +1,16 @@
 package uk.co.pbellchambers.maceswinger.mods;
 
+public enum TextureType {
 
-public enum TextureType{
+    MACE("maces"), MOB("mob"), TILE("tileset");
+    public String type;
 
-	
-	MACE("maces"),MOB("mob"),TILE("tileset")
-	
-	
-	;
-	public String type;
+    TextureType(String type) {
+        this.type = type;
+    }
 
-	TextureType(String type) {
-		this.type = type;
-	}
+    public String getType() {
+        return this.type;
+    }
 
-	public String getType() {
-		return this.type;
-	}
-	
-	}
+}

@@ -5,62 +5,56 @@ import org.magnos.entity.ComponentValueFactory;
 
 import java.util.Random;
 
-public class Sprite implements ComponentValueFactory<Sprite>
-{
-	public Texture texture;
-	public Rectangle region;
+public class Sprite implements ComponentValueFactory<Sprite> {
 
-	public static Random r = new Random();
+    public Texture texture;
+    public Rectangle region;
 
-	public Sprite(Texture texture, Rectangle region)
-	{
-		this.texture = texture;
-		this.region = region;
-	}
+    public static Random r = new Random();
 
-	public Sprite()
-	{
-		this(null, null);
-	}
+    public Sprite(Texture texture, Rectangle region) {
+        this.texture = texture;
+        this.region = region;
+    }
 
-	public void draw(Vector2 pos, Color color)
-	{
-		texture.bind();
-		GL11.glBegin(GL11.GL_QUADS);
-		color.glSet();
+    public Sprite() {
+        this(null, null);
+    }
 
-		GL11.glTexCoord2f(region.x / texture.width, (region.y + region.h) / texture.height);
-		GL11.glVertex2f(pos.x, pos.y);
+    public void draw(Vector2 pos, Color color) {
+        texture.bind();
+        GL11.glBegin(GL11.GL_QUADS);
+        color.glSet();
 
-		GL11.glTexCoord2f((region.x + region.w) / texture.width, (region.y + region.h) / texture.height);
-		GL11.glVertex2f(pos.x + region.w, pos.y);
+        GL11.glTexCoord2f(region.x / texture.width, (region.y + region.h) / texture.height);
+        GL11.glVertex2f(pos.x, pos.y);
 
-		GL11.glTexCoord2f((region.x + region.w) / texture.width, region.y / texture.height);
-		GL11.glVertex2f(pos.x + region.w, pos.y + region.h);
+        GL11.glTexCoord2f((region.x + region.w) / texture.width, (region.y + region.h) / texture.height);
+        GL11.glVertex2f(pos.x + region.w, pos.y);
 
-		GL11.glTexCoord2f(region.x / texture.width, region.y / texture.height);
-		GL11.glVertex2f(pos.x, pos.y + region.h);
+        GL11.glTexCoord2f((region.x + region.w) / texture.width, region.y / texture.height);
+        GL11.glVertex2f(pos.x + region.w, pos.y + region.h);
 
-		GL11.glEnd();
-	}
+        GL11.glTexCoord2f(region.x / texture.width, region.y / texture.height);
+        GL11.glVertex2f(pos.x, pos.y + region.h);
 
-	@Override
-	public Sprite create()
-	{
-		return new Sprite(null, null);
-	}
+        GL11.glEnd();
+    }
 
-	@Override
-	public Sprite clone(Sprite value)
-	{
-		return new Sprite(value.texture, value.region.clone(new Rectangle()));
-	}
+    @Override
+    public Sprite create() {
+        return new Sprite(null, null);
+    }
 
-	@Override
-	public Sprite copy(Sprite from, Sprite to)
-	{
-		to.region = from.region;
-		to.texture = from.texture;
-		return null;
-	}
+    @Override
+    public Sprite clone(Sprite value) {
+        return new Sprite(value.texture, value.region.clone(new Rectangle()));
+    }
+
+    @Override
+    public Sprite copy(Sprite from, Sprite to) {
+        to.region = from.region;
+        to.texture = from.texture;
+        return null;
+    }
 }

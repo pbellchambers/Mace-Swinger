@@ -14,136 +14,123 @@ import uk.co.pbellchambers.maceswinger.launcher.utils.Resources;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTMLDocument;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-public class UpdatePanel extends JPanel
-{
-	private static final long serialVersionUID = 1L;
+public class UpdatePanel extends JPanel {
 
-	private JEditorPane dtrpnResponse;
+    private static final long serialVersionUID = 1L;
 
-	public UpdatePanel()
-	{
-		super();
-		setBorder(BorderFactory.createLineBorder(Resources.foreground));
-		setBackground(Resources.background.brighter());
-		SpringLayout springLayout = new SpringLayout();
-		setLayout(springLayout);
+    private JEditorPane dtrpnResponse;
 
-		JLabel lblUpdateAvailable = new JLabel("A new update is available!");
-		springLayout.putConstraint(SpringLayout.SOUTH, lblUpdateAvailable, 57, SpringLayout.NORTH, this);
-		lblUpdateAvailable.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 20));
-		lblUpdateAvailable.setForeground(Resources.foreground);
-		lblUpdateAvailable.setHorizontalAlignment(SwingConstants.CENTER);
-		springLayout.putConstraint(SpringLayout.NORTH, lblUpdateAvailable, 13, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, lblUpdateAvailable, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, lblUpdateAvailable, -10, SpringLayout.EAST, this);
-		add(lblUpdateAvailable);
+    public UpdatePanel() {
+        super();
+        setBorder(BorderFactory.createLineBorder(Resources.foreground));
+        setBackground(Resources.background.brighter());
+        SpringLayout springLayout = new SpringLayout();
+        setLayout(springLayout);
 
-		JLabel lblDownloadNow = new JLabel("Would you like to download it now?");
-		springLayout.putConstraint(SpringLayout.WEST, lblDownloadNow, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, lblDownloadNow, -11, SpringLayout.EAST, this);
-		lblDownloadNow.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 16));
-		lblDownloadNow.setForeground(Resources.foreground);
-		lblDownloadNow.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblDownloadNow);
+        JLabel lblUpdateAvailable = new JLabel("A new update is available!");
+        springLayout.putConstraint(SpringLayout.SOUTH, lblUpdateAvailable, 57, SpringLayout.NORTH, this);
+        lblUpdateAvailable.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 20));
+        lblUpdateAvailable.setForeground(Resources.foreground);
+        lblUpdateAvailable.setHorizontalAlignment(SwingConstants.CENTER);
+        springLayout.putConstraint(SpringLayout.NORTH, lblUpdateAvailable, 13, SpringLayout.NORTH, this);
+        springLayout.putConstraint(SpringLayout.WEST, lblUpdateAvailable, 10, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.EAST, lblUpdateAvailable, -10, SpringLayout.EAST, this);
+        add(lblUpdateAvailable);
 
-		JButton btnYes = new JButton("Yes");
-		springLayout.putConstraint(SpringLayout.SOUTH, lblDownloadNow, -6, SpringLayout.NORTH, btnYes);
-		btnYes.setFont(new Font(Resources.PTSans.getName(), Font.PLAIN, 14));
-		springLayout.putConstraint(SpringLayout.WEST, btnYes, -100, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnYes, -10, SpringLayout.EAST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnYes, -10, SpringLayout.SOUTH, this);
-		add(btnYes);
+        JLabel lblDownloadNow = new JLabel("Would you like to download it now?");
+        springLayout.putConstraint(SpringLayout.WEST, lblDownloadNow, 10, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.EAST, lblDownloadNow, -11, SpringLayout.EAST, this);
+        lblDownloadNow.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 16));
+        lblDownloadNow.setForeground(Resources.foreground);
+        lblDownloadNow.setHorizontalAlignment(SwingConstants.CENTER);
+        add(lblDownloadNow);
 
-		JButton btnNo = new JButton("No");
-		btnNo.setFont(new Font(Resources.PTSans.getName(), Font.PLAIN, 14));
-		springLayout.putConstraint(SpringLayout.WEST, btnNo, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnNo, 100, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnNo, -10, SpringLayout.SOUTH, this);
-		add(btnNo);
+        JButton btnYes = new JButton("Yes");
+        springLayout.putConstraint(SpringLayout.SOUTH, lblDownloadNow, -6, SpringLayout.NORTH, btnYes);
+        btnYes.setFont(new Font(Resources.PTSans.getName(), Font.PLAIN, 14));
+        springLayout.putConstraint(SpringLayout.WEST, btnYes, -100, SpringLayout.EAST, this);
+        springLayout.putConstraint(SpringLayout.EAST, btnYes, -10, SpringLayout.EAST, this);
+        springLayout.putConstraint(SpringLayout.SOUTH, btnYes, -10, SpringLayout.SOUTH, this);
+        add(btnYes);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.getVerticalScrollBar().setUnitIncrement(5);
-		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, lblUpdateAvailable);
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -95, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.NORTH, lblDownloadNow, 6, SpringLayout.SOUTH, scrollPane);
-		scrollPane.setBorder(BorderFactory.createLineBorder(Resources.foreground));
-		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -10, SpringLayout.EAST, this);
-		add(scrollPane);
+        JButton btnNo = new JButton("No");
+        btnNo.setFont(new Font(Resources.PTSans.getName(), Font.PLAIN, 14));
+        springLayout.putConstraint(SpringLayout.WEST, btnNo, 10, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.EAST, btnNo, 100, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.SOUTH, btnNo, -10, SpringLayout.SOUTH, this);
+        add(btnNo);
 
-		dtrpnResponse = new JEditorPane("text/html", null);
-		((HTMLDocument) dtrpnResponse.getDocument()).getStyleSheet().addRule("a{color:#" + Integer.toHexString(new Color(132, 170, 187).brighter().getRGB()).substring(2) + "}");
-		dtrpnResponse.addHyperlinkListener(Resources.hyperlinkListener);
-		dtrpnResponse.putClientProperty("Nimbus.Overrides", Resources.defaults);
-		dtrpnResponse.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
-		dtrpnResponse.setBackground(Resources.background.brighter().brighter());
-		dtrpnResponse.setBorder(new EmptyBorder(0, 5, 0, 5));
-		dtrpnResponse.setForeground(new Color(132, 170, 187));
-		dtrpnResponse.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 14));
-		dtrpnResponse.setEditable(false);
-		scrollPane.setViewportView(dtrpnResponse);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 6, SpringLayout.SOUTH, lblUpdateAvailable);
+        springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -95, SpringLayout.SOUTH, this);
+        springLayout.putConstraint(SpringLayout.NORTH, lblDownloadNow, 6, SpringLayout.SOUTH, scrollPane);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Resources.foreground));
+        springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.EAST, scrollPane, -10, SpringLayout.EAST, this);
+        add(scrollPane);
 
-		btnYes.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				MainFrame.mainFrame.animateBetween(View.UPDATEAVAILABLE, View.MENU, new Callback()
-				{
-					public void done()
-					{
-						LauncherUtils.downloadGame();
-					}
-				});
-			}
-		});
+        dtrpnResponse = new JEditorPane("text/html", null);
+        ((HTMLDocument) dtrpnResponse.getDocument()).getStyleSheet().addRule("a{color:#" + Integer.toHexString(new Color(132, 170, 187).brighter().getRGB()).substring(2) + "}");
+        dtrpnResponse.addHyperlinkListener(Resources.hyperlinkListener);
+        dtrpnResponse.putClientProperty("Nimbus.Overrides", Resources.defaults);
+        dtrpnResponse.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
+        dtrpnResponse.setBackground(Resources.background.brighter().brighter());
+        dtrpnResponse.setBorder(new EmptyBorder(0, 5, 0, 5));
+        dtrpnResponse.setForeground(new Color(132, 170, 187));
+        dtrpnResponse.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 14));
+        dtrpnResponse.setEditable(false);
+        scrollPane.setViewportView(dtrpnResponse);
 
-		btnNo.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				MainFrame.mainFrame.setButtonsEnabled(true);
-				MainFrame.mainFrame.menuPanel.btnPlay.setText("Play");
-				MainFrame.mainFrame.animateBetween(View.UPDATEAVAILABLE, View.MENU, null);
-			}
-		});
-	}
+        btnYes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                MainFrame.mainFrame.animateBetween(View.UPDATEAVAILABLE, View.MENU, new Callback() {
+                    public void done() {
+                        LauncherUtils.downloadGame();
+                    }
+                });
+            }
+        });
 
-	public void updateChangelog()
-	{
-		dtrpnResponse.setText("Loading changes...");
-		try
-		{
-			Document d = LauncherUtils.bootstrap.getChangelog();
-			NodeList nList = d.getElementsByTagName("build");
-			StringBuilder entries = new StringBuilder();
-			for (int temp = nList.getLength() - 1; temp >= 0; temp--)
-			{
-				Node nNode = nList.item(temp);
-				if (nNode.getNodeType() == Node.ELEMENT_NODE)
-				{
-					Element eElement = (Element) nNode;
-					Integer buildNumber = Integer.parseInt(eElement.getAttribute("buildNumber"));
-					String verString = eElement.getElementsByTagName("buildVersionString").item(0).getTextContent();
-					Scanner reader = new Scanner(eElement.getElementsByTagName("changes").item(0).getTextContent());
-					StringBuilder entry = new StringBuilder("v" + verString + " (build " + buildNumber + "):");
-					while (reader.hasNextLine())
-						entry.append(" " + reader.nextLine().trim() + "\n");
-					entries.append(entry.toString() + "\n");
-					reader.close();
-				}
-			}
-			dtrpnResponse.setText(LauncherUtils.htmlify(d.getElementsByTagName("headerText").item(0).getTextContent().trim() + "\n\n" + entries.toString().trim()));
-			dtrpnResponse.setCaretPosition(0);
-		}
-		catch (Exception e)
-		{
-			new ExceptionDisplayDialog(MainFrame.mainFrame, e);
-		}
-	}
+        btnNo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                MainFrame.mainFrame.setButtonsEnabled(true);
+                MainFrame.mainFrame.menuPanel.btnPlay.setText("Play");
+                MainFrame.mainFrame.animateBetween(View.UPDATEAVAILABLE, View.MENU, null);
+            }
+        });
+    }
+
+    public void updateChangelog() {
+        dtrpnResponse.setText("Loading changes...");
+        try {
+            Document d = LauncherUtils.bootstrap.getChangelog();
+            NodeList nList = d.getElementsByTagName("build");
+            StringBuilder entries = new StringBuilder();
+            for (int temp = nList.getLength() - 1; temp >= 0; temp--) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    Integer buildNumber = Integer.parseInt(eElement.getAttribute("buildNumber"));
+                    String verString = eElement.getElementsByTagName("buildVersionString").item(0).getTextContent();
+                    Scanner reader = new Scanner(eElement.getElementsByTagName("changes").item(0).getTextContent());
+                    StringBuilder entry = new StringBuilder("v" + verString + " (build " + buildNumber + "):");
+                    while (reader.hasNextLine()) {
+                        entry.append(" " + reader.nextLine().trim() + "\n");
+                    }
+                    entries.append(entry.toString() + "\n");
+                    reader.close();
+                }
+            }
+            dtrpnResponse.setText(LauncherUtils.htmlify(d.getElementsByTagName("headerText").item(0).getTextContent().trim() + "\n\n" + entries.toString().trim()));
+            dtrpnResponse.setCaretPosition(0);
+        } catch (Exception e) {
+            new ExceptionDisplayDialog(MainFrame.mainFrame, e);
+        }
+    }
 }

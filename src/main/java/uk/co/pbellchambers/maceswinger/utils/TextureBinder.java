@@ -1,4 +1,3 @@
-
 package uk.co.pbellchambers.maceswinger.utils;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
@@ -16,9 +15,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class TextureBinder {
 
-	
-public static void bindTexture(String URL, int texture) {
-		
+    public static void bindTexture(String URL, int texture) {
+
         {
             InputStream in = null;
             try {
@@ -33,12 +31,12 @@ public static void bindTexture(String URL, int texture) {
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, decoder.getWidth(), decoder.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
                 glBindTexture(GL_TEXTURE_2D, 0);
             } catch (FileNotFoundException ex) {
-                System.err.println("Failed to find the texture files. "+URL);
+                System.err.println("Failed to find the texture files. " + URL);
                 ex.printStackTrace();
                 Display.destroy();
                 System.exit(1);
             } catch (IOException ex) {
-                System.err.println("Failed to load the texture files. "+URL);
+                System.err.println("Failed to load the texture files. " + URL);
                 ex.printStackTrace();
                 Display.destroy();
                 System.exit(1);
@@ -52,8 +50,7 @@ public static void bindTexture(String URL, int texture) {
                 }
             }
         }
-		
-	}
 
-	
+    }
+
 }

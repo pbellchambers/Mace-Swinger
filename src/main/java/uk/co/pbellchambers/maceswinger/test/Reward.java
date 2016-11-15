@@ -1,23 +1,20 @@
 package uk.co.pbellchambers.maceswinger.test;
 
-public class Reward
-{
-	private int xp; //something i dunno
-	private Object loot;
+public class Reward {
 
-	public Reward(int xp, Object loot)
-	{
-		this.xp = xp;
-		this.loot = loot;
-	}
+    private int xp; //something i dunno
+    private Object loot;
 
-	public int getXP()
-	{
-		return this.xp;
-	}
+    public Reward(int xp, Object loot) {
+        this.xp = xp;
+        this.loot = loot;
+    }
 
-	public Object getLoot()
-	{
-		return this.loot;
-	}
+    public int getXP() {
+        return this.xp;
+    }
+
+    public Object getLoot() {
+        return this.loot;
+    }
 }

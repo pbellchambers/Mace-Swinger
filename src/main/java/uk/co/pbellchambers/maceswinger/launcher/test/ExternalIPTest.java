@@ -7,41 +7,38 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ExternalIPTest
-{
-	public static void main(String[] args)
-	{
+public class ExternalIPTest {
 
-		try
-		{
-			//			if (!SSLUtils.doneCerts && !SSLUtils.installCerts())
-			//				return;
+    public static void main(String[] args) {
 
-			System.out.println("Connecting to the Mace Swinger A.R.I.S.T.O.T.L.E. login API...");
+        try {
+            //			if (!SSLUtils.doneCerts && !SSLUtils.installCerts())
+            //				return;
 
-			String charset = "UTF-8";
+            System.out.println("Connecting to the Mace Swinger A.R.I.S.T.O.T.L.E. login API...");
 
-			HttpURLConnection connection = (HttpURLConnection) new URL("http://github.com/pbellchambers/Mace-Swinger").openConnection();
-			connection.setDoOutput(true);
-			connection.setConnectTimeout(15 * 1000);
-			connection.setReadTimeout(15 * 1000);
-			connection.setRequestProperty("Accept-Charset", charset);
-			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-			connection.setRequestProperty("User-Agent", "Mace Swinger Launcher/1.0 (" + OSUtils.getCurrentOS().toString() + ")");
-			connection.setRequestMethod("POST");
+            String charset = "UTF-8";
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String inputLine;
-			final StringBuilder inputLines = new StringBuilder("");
-			while ((inputLine = in.readLine()) != null)
-				inputLines.append(inputLine.trim() + "\n");
-			in.close();
+            HttpURLConnection connection = (HttpURLConnection) new URL("http://github.com/pbellchambers/Mace-Swinger").openConnection();
+            connection.setDoOutput(true);
+            connection.setConnectTimeout(15 * 1000);
+            connection.setReadTimeout(15 * 1000);
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            connection.setRequestProperty("User-Agent", "Mace Swinger Launcher/1.0 (" + OSUtils.getCurrentOS().toString() + ")");
+            connection.setRequestMethod("POST");
 
-			System.out.println(inputLines.toString().trim());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            final StringBuilder inputLines = new StringBuilder("");
+            while ((inputLine = in.readLine()) != null) {
+                inputLines.append(inputLine.trim() + "\n");
+            }
+            in.close();
+
+            System.out.println(inputLines.toString().trim());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

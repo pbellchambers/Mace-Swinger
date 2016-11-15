@@ -14,34 +14,32 @@ import java.util.ArrayList;
 
 /**
  * Registers serializables
- * 
+ *
  * @since Feb 2, 2014
  */
-public class KryoReg
-{
-	/**
-	 * Registers all the serializable classes
-	 * 
-	 * @param k
-	 *            Kryo instance to register to
-	 */
-	public static void reg(Kryo k)
-	{
-		k.register(IntVal.class);
-		k.register(Vector2.class);
-		k.register(Rectangle.class);
-		k.register(Inventory.class);
-		k.register(ItemStack.class);
-		k.register(ItemVal.class);
-		k.register(Block.class);
-		k.register(ArrayList.class);
-		k.register(Animation.class);
-		k.register(Animation.Frame.class);
-		k.register(Animation.Frame[].class);
+public class KryoReg {
 
-		k.register(MessageNewEntity.class);
-		k.register(MessageSetComponent.class);
-		k.register(MessageSetController.class);
-		k.register(MessageSetRenderer.class);
-	}
+    /**
+     * Registers all the serializable classes
+     *
+     * @param k Kryo instance to register to
+     */
+    public static void reg(Kryo k) {
+        k.register(IntVal.class);
+        k.register(Vector2.class);
+        k.register(Rectangle.class);
+        k.register(Inventory.class);
+        k.register(ItemStack.class);
+        k.register(ItemVal.class);
+        k.register(Block.class);
+        k.register(ArrayList.class);
+        k.register(Animation.class);
+        k.register(Animation.Frame.class);
+        k.register(Animation.Frame[].class);
+
+        k.register(MessageNewEntity.class);
+        k.register(MessageSetComponent.class);
+        k.register(MessageSetController.class);
+        k.register(MessageSetRenderer.class);
+    }
 }

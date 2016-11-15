@@ -23,73 +23,69 @@ import uk.co.pbellchambers.maceswinger.server.GameServer;
 import uk.co.pbellchambers.maceswinger.test.inventory.Inventory;
 
 @ModInfo
-public class Core extends Mod
-{
-	public static class Controllers
-	{
-		public static Controller gravity;
-		public static Controller velocity;
-		public static Controller player;
-		public static Controller goblinAi;
-	}
+public class Core extends Mod {
 
-	public static class Components
-	{
-		public static Component<Vector2> velocity;
+    public static class Controllers {
 
-		public static Component<FloatVal> rotation;
-		public static Component<Rectangle> collider;
+        public static Controller gravity;
+        public static Controller velocity;
+        public static Controller player;
+        public static Controller goblinAi;
+    }
 
-		public static Component<Inventory> inventory;
-		public static Component<IntVal> jumpCooldown;
-		public static Component<IntVal> attackCooldown;
-	}
+    public static class Components {
 
-	@Override
-	public void info()
-	{
-		name = "MS Core";
-		desc = "Main data package for Mace Swinger";
-	}
+        public static Component<Vector2> velocity;
 
-	@Override
-	public void init()
-	{
-		Controllers.gravity = Ents.newController("gravity", new ControlGravity());
-		Controllers.velocity = Ents.newController("velocity", new ControlVelocity());
-		Controllers.player = Ents.newController("player", new ControlPlayer());
-		Controllers.goblinAi = Ents.newController("goblin_ai", new ControlGoblinAI());
+        public static Component<FloatVal> rotation;
+        public static Component<Rectangle> collider;
 
-		Components.velocity = Ents.newComponent("velocity", new Vector2());
-		Components.rotation = Ents.newComponent("rotation", new FloatVal());
-		Components.collider = Ents.newComponent("rectangle", new Rectangle());
-		Components.inventory = Ents.newComponent("inventory", new Inventory());
-		Components.jumpCooldown = Ents.newComponent("jumpCooldown", new IntVal());
-		Components.attackCooldown = Ents.newComponent("attackCooldown", new IntVal());
+        public static Component<Inventory> inventory;
+        public static Component<IntVal> jumpCooldown;
+        public static Component<IntVal> attackCooldown;
+    }
 
-		MapLoader.addMapObject("PlayerSpawn", new PlayerSpawn());
-		MapLoader.addMapObject("GoblinSpawn", new GoblinSpawn());
-		MapLoader.addMapObject("Tile", new Tile());
-		MapLoader.addMapObject("GravityTile", new GravityTile());
+    @Override
+    public void info() {
+        name = "MS Core";
+        desc = "Main data package for Mace Swinger";
+    }
 
-		Register.components.add(Components.velocity);
-		Register.components.add(Components.rotation);
-		Register.components.add(Components.collider);
-		Register.components.add(Components.inventory);
-		Register.components.add(Components.jumpCooldown);
-		Register.components.add(Components.attackCooldown);
+    @Override
+    public void init() {
+        Controllers.gravity = Ents.newController("gravity", new ControlGravity());
+        Controllers.velocity = Ents.newController("velocity", new ControlVelocity());
+        Controllers.player = Ents.newController("player", new ControlPlayer());
+        Controllers.goblinAi = Ents.newController("goblin_ai", new ControlGoblinAI());
 
-		Register.controllers.add(Controllers.goblinAi);
-		Register.controllers.add(Controllers.velocity);
-		Register.controllers.add(Controllers.gravity);
-		Register.controllers.add(Controllers.player);
+        Components.velocity = Ents.newComponent("velocity", new Vector2());
+        Components.rotation = Ents.newComponent("rotation", new FloatVal());
+        Components.collider = Ents.newComponent("rectangle", new Rectangle());
+        Components.inventory = Ents.newComponent("inventory", new Inventory());
+        Components.jumpCooldown = Ents.newComponent("jumpCooldown", new IntVal());
+        Components.attackCooldown = Ents.newComponent("attackCooldown", new IntVal());
 
-		GameServer.onPlayerConnect = new Runnable()
-		{
-			public void run()
-			{
-				GameServer.entities.add(PlayerSpawn.create((int) GameServer.playerSpawn.x, (int) GameServer.playerSpawn.y));
-			}
-		};
-	}
+        MapLoader.addMapObject("PlayerSpawn", new PlayerSpawn());
+        MapLoader.addMapObject("GoblinSpawn", new GoblinSpawn());
+        MapLoader.addMapObject("Tile", new Tile());
+        MapLoader.addMapObject("GravityTile", new GravityTile());
+
+        Register.components.add(Components.velocity);
+        Register.components.add(Components.rotation);
+        Register.components.add(Components.collider);
+        Register.components.add(Components.inventory);
+        Register.components.add(Components.jumpCooldown);
+        Register.components.add(Components.attackCooldown);
+
+        Register.controllers.add(Controllers.goblinAi);
+        Register.controllers.add(Controllers.velocity);
+        Register.controllers.add(Controllers.gravity);
+        Register.controllers.add(Controllers.player);
+
+        GameServer.onPlayerConnect = new Runnable() {
+            public void run() {
+                GameServer.entities.add(PlayerSpawn.create((int) GameServer.playerSpawn.x, (int) GameServer.playerSpawn.y));
+            }
+        };
+    }
 }

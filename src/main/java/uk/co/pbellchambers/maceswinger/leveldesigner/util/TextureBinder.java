@@ -1,6 +1,5 @@
 package uk.co.pbellchambers.maceswinger.leveldesigner.util;
 
-
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import org.lwjgl.BufferUtils;
@@ -15,13 +14,12 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class TextureBinder {
 
-	
-public TextureBinder(InputStream in, int texture) {
-		
+    public TextureBinder(InputStream in, int texture) {
+
         {
-           
+
             try {
-                
+
                 PNGDecoder decoder = new PNGDecoder(in);
                 ByteBuffer buffer = BufferUtils.createByteBuffer(4 * decoder.getWidth() * decoder.getHeight());
                 decoder.decode(buffer, decoder.getWidth() * 4, Format.RGBA);
@@ -32,12 +30,12 @@ public TextureBinder(InputStream in, int texture) {
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, decoder.getWidth(), decoder.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
                 glBindTexture(GL_TEXTURE_2D, 0);
             } catch (FileNotFoundException ex) {
-                System.err.println("Failed to find the texture files. "+in);
+                System.err.println("Failed to find the texture files. " + in);
                 ex.printStackTrace();
                 Display.destroy();
                 System.exit(1);
             } catch (IOException ex) {
-                System.err.println("Failed to load the texture files. "+in);
+                System.err.println("Failed to load the texture files. " + in);
                 ex.printStackTrace();
                 Display.destroy();
                 System.exit(1);
@@ -51,8 +49,7 @@ public TextureBinder(InputStream in, int texture) {
                 }
             }
         }
-		
-	}
 
-	
+    }
+
 }

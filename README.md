@@ -13,7 +13,9 @@ Build with gradle (some libraries stored locally, requires manual faffing to get
 * Update Manager: Internal tool that that would have been used to push updates
 
 
-Todo: sort out build, resources, native libraries etc.
+To build you require gradle (produces a zip file in build/distributions):
+
+**gradle maceSwingerDistZip**
 
 
 This project is released under the MIT license:

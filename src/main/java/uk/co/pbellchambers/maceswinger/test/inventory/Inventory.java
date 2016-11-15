@@ -4,64 +4,59 @@ import org.magnos.entity.ComponentValueFactory;
 
 import java.util.ArrayList;
 
-public class Inventory implements ComponentValueFactory<Inventory>
-{
-	private ArrayList<ItemStack> stacks;
+public class Inventory implements ComponentValueFactory<Inventory> {
 
-	public Inventory()
-	{
-		this.stacks = new ArrayList<ItemStack>();
-	}
+    private ArrayList<ItemStack> stacks;
 
-	public void addItem(Item i)
-	{
-		ItemStack temp = null;
-		for (ItemStack stack : stacks)
-			if (stack.getBaseItem().equals(i) && !stack.isFull())
-				temp = stack;
-		if (temp != null)
-			temp.addItem(i);
-		else
-		{
-			ItemStack temp2 = new ItemStack(i);
-			temp2.addItem(i);
-			stacks.add(temp2);
-		}
-	}
+    public Inventory() {
+        this.stacks = new ArrayList<ItemStack>();
+    }
 
-	public void removeItem(Item i)
-	{
-		for (ItemStack stack : stacks)
-			if (!stack.isEmpty())
-				stack.removeItem(i);
-	}
+    public void addItem(Item i) {
+        ItemStack temp = null;
+        for (ItemStack stack : stacks) {
+            if (stack.getBaseItem().equals(i) && !stack.isFull()) {
+                temp = stack;
+            }
+        }
+        if (temp != null) {
+            temp.addItem(i);
+        } else {
+            ItemStack temp2 = new ItemStack(i);
+            temp2.addItem(i);
+            stacks.add(temp2);
+        }
+    }
 
-	public ArrayList<ItemStack> getStacks()
-	{
-		return this.stacks;
-	}
+    public void removeItem(Item i) {
+        for (ItemStack stack : stacks) {
+            if (!stack.isEmpty()) {
+                stack.removeItem(i);
+            }
+        }
+    }
 
-	public int getSize()
-	{
-		return this.stacks.size();
-	}
+    public ArrayList<ItemStack> getStacks() {
+        return this.stacks;
+    }
 
-	@Override
-	public Inventory create()
-	{
-		return new Inventory();
-	}
+    public int getSize() {
+        return this.stacks.size();
+    }
 
-	@Override
-	public Inventory clone(Inventory value)
-	{
-		return copy(value, new Inventory());
-	}
+    @Override
+    public Inventory create() {
+        return new Inventory();
+    }
 
-	@Override
-	public Inventory copy(Inventory from, Inventory to)
-	{
-		to.stacks = from.stacks;
-		return to;
-	}
+    @Override
+    public Inventory clone(Inventory value) {
+        return copy(value, new Inventory());
+    }
+
+    @Override
+    public Inventory copy(Inventory from, Inventory to) {
+        to.stacks = from.stacks;
+        return to;
+    }
 }

@@ -6,37 +6,34 @@ import org.magnos.entity.Ents;
 import uk.co.pbellchambers.maceswinger.client.GameClient;
 import uk.co.pbellchambers.maceswinger.server.GameServer;
 
-public class MessageSetComponent extends Message
-{
-	int cid;
-	Object obj;
-	int eid;
+public class MessageSetComponent extends Message {
 
-	public MessageSetComponent()
-	{
-	}
+    int cid;
+    Object obj;
+    int eid;
 
-	public MessageSetComponent(int eid, int cid, Object object)
-	{
-		this.eid = eid;
-		this.cid = cid;
-		this.obj = object;
-	}
+    public MessageSetComponent() {
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public void runClient(GameClient c)
-	{
-		Entity e = c.entities.at(eid);
+    public MessageSetComponent(int eid, int cid, Object object) {
+        this.eid = eid;
+        this.cid = cid;
+        this.obj = object;
+    }
 
-		Component<Object> comp = (Component<Object>) Ents.getComponents().getDefinition(cid);
-		if (!e.has(comp))
-			e.add(comp);
-		e.set(comp, obj);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public void runClient(GameClient c) {
+        Entity e = c.entities.at(eid);
 
-	@Override
-	public void runServer(GameServer s)
-	{
-	}
+        Component<Object> comp = (Component<Object>) Ents.getComponents().getDefinition(cid);
+        if (!e.has(comp)) {
+            e.add(comp);
+        }
+        e.set(comp, obj);
+    }
+
+    @Override
+    public void runServer(GameServer s) {
+    }
 }

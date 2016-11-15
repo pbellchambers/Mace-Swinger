@@ -1,27 +1,23 @@
 package uk.co.pbellchambers.maceswinger.server;
 
-public class Client
-{
-	private String username, ip;
+public class Client {
 
-	public Client(String username, String ip)
-	{
-		this.username = username;
-		this.ip = ip;
-	}
+    private String username, ip;
 
-	public String getUsername()
-	{
-		return username;
-	}
+    public Client(String username, String ip) {
+        this.username = username;
+        this.ip = ip;
+    }
 
-	public String getIP()
-	{
-		return this.ip;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String toString()
-	{
-		return this.username;
-	}
+    public String getIP() {
+        return this.ip;
+    }
+
+    public String toString() {
+        return this.username;
+    }
 }
