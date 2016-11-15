@@ -2,14 +2,11 @@ package uk.co.pbellchambers.maceswinger.launcher.utils;
 
 import com.moomoohk.Mootilities.OSUtils.OSUtils;
 
-import javax.swing.UIDefaults;
+import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.event.HyperlinkListener;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +22,7 @@ public class Resources
 	public static Color foreground = new Color(0xd7b818);
 	public static Font PTSans;
 	public static URL logo, footer, settingsLogo, shield;
-	public static String truststore, saveDir, gamePath, lwjglNativesPath;
+	public static String truststore, saveDir, gamePath;
 	public static File versionFile;
 	public static UIDefaults defaults = new UIDefaults();
 	public static HyperlinkListener hyperlinkListener = new HyperlinkListener()
@@ -70,7 +67,6 @@ public class Resources
 			System.setProperty("javax.net.ssl.trustStore", truststore);
 			System.out.println("Done\n");
 			gamePath = saveDir + "game/MaceSwinger.jar";
-			lwjglNativesPath = saveDir + "lwjgl/";
 			versionFile = new File(saveDir + "game/version");
 		}
 		catch (Exception e1)

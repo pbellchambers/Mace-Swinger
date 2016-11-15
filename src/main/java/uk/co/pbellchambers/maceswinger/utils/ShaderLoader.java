@@ -1,9 +1,11 @@
 package uk.co.pbellchambers.maceswinger.utils;
 
 
+import uk.co.pbellchambers.maceswinger.Resources;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
@@ -11,7 +13,7 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class ShaderLoader {
     
-    public static int loadShaderPair(String vertexShaderLocation, String fragmentShaderLocation) {
+    public static int loadShaderPair() {
         int shaderProgram = glCreateProgram();
         int vertexShader = glCreateShader(GL_VERTEX_SHADER);
         int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -19,8 +21,7 @@ public class ShaderLoader {
         StringBuilder fragmentShaderSource = new StringBuilder();
         BufferedReader vertexShaderFileReader = null;
         try {
-            vertexShaderFileReader = new BufferedReader(new FileReader(
-                    vertexShaderLocation));
+            vertexShaderFileReader = new BufferedReader(new InputStreamReader(Resources.get("shader.vs")));
             String line;
             while ((line = vertexShaderFileReader.readLine()) != null) {
                 vertexShaderSource.append(line).append('\n');
@@ -39,8 +40,7 @@ public class ShaderLoader {
         }
         BufferedReader fragmentShaderFileReader = null;
         try {
-            fragmentShaderFileReader = new BufferedReader(new FileReader(
-                    fragmentShaderLocation));
+            fragmentShaderFileReader = new BufferedReader(new InputStreamReader(Resources.get("shader.frag")));
             String line;
             while ((line = fragmentShaderFileReader.readLine()) != null) {
                 fragmentShaderSource.append(line).append('\n');

@@ -17,6 +17,7 @@ import uk.co.pbellchambers.maceswinger.Components;
 import uk.co.pbellchambers.maceswinger.Vector2;
 import uk.co.pbellchambers.maceswinger.client.render.SpriteRenderer;
 import uk.co.pbellchambers.maceswinger.client.render.lighting.*;
+import uk.co.pbellchambers.maceswinger.client.render.lighting.Point;
 import uk.co.pbellchambers.maceswinger.gui.Gui;
 import uk.co.pbellchambers.maceswinger.gui.GuiMainMenu;
 import uk.co.pbellchambers.maceswinger.mods.ModuleLoader;
@@ -27,9 +28,8 @@ import uk.co.pbellchambers.maceswinger.server.GameServer;
 import uk.co.pbellchambers.maceswinger.utils.*;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.awt.Canvas;
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -389,10 +389,10 @@ public class GameClient {
 		SpriteRenderer.mainCamera = new Vector2();
 		System.out.println("Loading!");
 		long startTime = System.currentTimeMillis();
+		ModuleLoader.debugPasteCoreMod();
 		Sound.loadSounds();
 		Textures.loadAll();
 		ModuleLoader.initMods();
-		ModuleLoader.debugPasteCoreMod();
 		setUpShaders();
 		long endTime = System.currentTimeMillis();
 		long time = endTime - startTime;
@@ -403,8 +403,7 @@ public class GameClient {
 	}
 
 	private void setUpShaders() {
-		lightProgram = ShaderLoader.loadShaderPair(OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "modules"+File.separator+"res"+File.separator+"shader.vs",
-												   OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "modules"+File.separator+"res"+File.separator+"shader.frag");
+		lightProgram = ShaderLoader.loadShaderPair();
 	}
 
 	public void closeGui() {
@@ -562,24 +561,8 @@ public class GameClient {
 		// catch (Exception e)
 		// {
 		// return;
-		// }
-		try {
-			System.setProperty("org.lwjgl.librarypath",
-					OSUtils.getDynamicStorageLocation() + "Mace Swinger"
-							+ File.separator + "lwjgl" + File.separator
-							+ OSUtils.getCurrentOS().toString().toLowerCase());
-			System.setProperty("net.java.games.input.librarypath",
-					System.getProperty("org.lwjgl.librarypath"));
-		} catch (UnsatisfiedLinkError e) {
-			System.out
-					.println("LWJGL natives not found! Please use the launcher to download them.");
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"LWJGL natives not found! Please use the launcher to download them.",
-							"", JOptionPane.PLAIN_MESSAGE);
-			return;
-		}
+
+		System.setProperty("org.lwjgl.librarypath", new File("libs").getAbsolutePath());
 
 		try {
 			new GameClient().run();

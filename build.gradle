@@ -1,7 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'com.stehno.natives'
-apply plugin:'application'
+apply plugin: 'application'
+apply plugin: 'distribution'
 
 buildscript {
     repositories {
@@ -34,12 +35,49 @@ dependencies {
     compile fileTree(dir: 'src/main/resources/lib/launcher', include: ['*.jar'])
 }
 
-listNatives
+natives {
+    outputDir = 'libs/libs'
+}
 
 jar {
     manifest {
         attributes 'Main-Class': 'uk.co.pbellchambers.maceswinger.client.GameClient'
     }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 mainClassName = 'uk.co.pbellchambers.maceswinger.client.GameClient'
+
+task copyCoreModule(type: Copy) {
+    from 'build/classes/main/uk/co/pbellchambers/maceswinger/core'
+    into 'build/modules/modules/core'
+}
+
+task copyModuleResources(type: Copy) {
+    from 'modules'
+    into 'build/modules/modules'
+}
+
+task copyNativeLibraries(type: Copy) {
+    from 'build/libs/libs'
+    into 'libs'
+}
+
+distributions {
+    maceSwinger {
+        baseName = 'Mace-Swinger'
+        contents {
+            from { 'build/libs' }
+            from { 'build/modules' }
+        }
+    }
+}
+
+includeNatives.dependsOn 'jar'
+copyNativeLibraries.dependsOn 'includeNatives'
+copyModuleResources.dependsOn 'copyNativeLibraries'
+copyCoreModule.dependsOn 'copyModuleResources'
+maceSwingerDistZip.dependsOn 'copyCoreModule'

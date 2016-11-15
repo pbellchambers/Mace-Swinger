@@ -1,15 +1,13 @@
 package uk.co.pbellchambers.maceswinger.leveldesigner;
 
-import com.moomoohk.Mootilities.OSUtils.OSUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import uk.co.pbellchambers.maceswinger.leveldesigner.util.CustomDisplay;
 import uk.co.pbellchambers.maceswinger.leveldesigner.util.SpriteSheet;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.awt.Canvas;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 import static org.lwjgl.opengl.GL11.glEnable;
@@ -118,27 +116,9 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-
-		try {
-			System.setProperty("org.lwjgl.librarypath",
-					OSUtils.getDynamicStorageLocation() + "Mace Swinger"
-							+ File.separator + "lwjgl" + File.separator
-							+ OSUtils.getCurrentOS().toString().toLowerCase());
-			System.setProperty("net.java.games.input.librarypath",
-					System.getProperty("org.lwjgl.librarypath"));
-		} catch (UnsatisfiedLinkError e) {
-			System.out
-					.println("LWJGL natives not found! Please use the launcher to download them.");
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"LWJGL natives not found! Please use the launcher to download them.",
-							"", JOptionPane.PLAIN_MESSAGE);
-			return;
-		}
+		System.setProperty("org.lwjgl.librarypath", new File("libs").getAbsolutePath());
 
 		new Main().run();
-
 	}
 
 }
