@@ -15,7 +15,9 @@ Build with gradle (some libraries stored locally, requires manual faffing to get
 
 To build you require gradle (produces a zip file in build/distributions):
 
-**gradle maceSwingerDistZip**
+**gradle clean :core:clean :launcher:clean :leveldesigner:clean :core:jar :launcher:jar :leveldesigner:jar maceSwingerDistZip**
+
+(build script needs some tidying)
 
 
 This project is released under the MIT license:

@@ -1,3 +1,5 @@
+- multi module gradle project
+
 Need to be added to the MS directory:
 - Mod resource folder for easy loading
 - Custom levels folder, for saving and loading 

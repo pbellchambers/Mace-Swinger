@@ -1,58 +1,101 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'com.stehno.natives'
-apply plugin: 'application'
-apply plugin: 'distribution'
-
 buildscript {
     repositories {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
-        mavenLocal()
-        mavenCentral()
-        jcenter()
     }
-
     dependencies {
         classpath "gradle.plugin.com.stehno:gradle-natives:0.3.0"
     }
 }
 
-repositories {
-    mavenCentral()
-}
+apply plugin: "com.stehno.natives"
 
-dependencies {
-    compile group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.22'
-    compile group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
-    compile group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
-    compile group: 'com.miglayout', name: 'miglayout-swing', version: '4.2'
-    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.1'
-    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.1'
 
-    compile fileTree(dir: 'src/main/resources/lib', include: ['*.jar'])
-    compile fileTree(dir: 'src/main/resources/lib/launcher', include: ['*.jar'])
-}
-
-natives {
-    outputDir = 'libs/libs'
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'uk.co.pbellchambers.maceswinger.client.GameClient'
+allprojects {
+    buildscript {
+        repositories {
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+            mavenLocal()
+            mavenCentral()
+            jcenter()
+        }
     }
 
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'distribution'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.22'
+        compile group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
+        compile group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
+        compile group: 'com.miglayout', name: 'miglayout-swing', version: '4.2'
+        compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.1'
+        compile group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.1'
+
+        compile fileTree(dir: 'src/main/resources/lib', include: ['*.jar'])
+        compile fileTree(dir: 'src/main/resources/lib/launcher', include: ['*.jar'])
     }
 }
 
-mainClassName = 'uk.co.pbellchambers.maceswinger.client.GameClient'
+project(':core') {
+    natives {
+        outputDir = 'native/libs'
+    }
+
+    jar {
+        baseName 'Mace-Swinger'
+        manifest {
+            attributes 'Main-Class': 'uk.co.pbellchambers.maceswinger.client.GameClient'
+        }
+
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+}
+
+project(':launcher') {
+    dependencies {
+        compile project(':core')
+    }
+
+    jar {
+        manifest {
+            attributes 'Main-Class': 'uk.co.pbellchambers.maceswinger.launcher.MainFrame'
+        }
+
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+}
+
+project(':leveldesigner') {
+    dependencies {
+        compile project(':core')
+    }
+
+    jar {
+        manifest {
+            attributes 'Main-Class': 'uk.co.pbellchambers.maceswinger.leveldesigner.Main'
+        }
+
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+}
 
 task copyCoreModule(type: Copy) {
-    from 'build/classes/main/uk/co/pbellchambers/maceswinger/core'
+    from 'core/build/classes/main/uk/co/pbellchambers/maceswinger/core'
     into 'build/modules/modules/core'
 }
 
@@ -70,8 +113,11 @@ distributions {
     maceSwinger {
         baseName = 'Mace-Swinger'
         contents {
-            from { 'build/libs' }
+            from { 'core/build/libs' }
+            from { 'launcher/build/libs' }
+            from { 'leveldesigner/build/libs' }
             from { 'build/modules' }
+            from { 'build/native' }
         }
     }
 }

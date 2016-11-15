@@ -242,7 +242,8 @@ public class LauncherUtils {
     }
 
     public static boolean isGameInstalled() {
-        return new File(Resources.gamePath).exists();
+//        return new File(Resources.gamePath).exists();
+        return true; //forcing true for now
     }
 
     public static boolean checkSession() {

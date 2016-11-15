@@ -19,13 +19,13 @@ public class SpriteSheet {
     }
 
     public static void openSheet() {
-        TextureBinder tex = new TextureBinder(SpriteSheet.class.getResourceAsStream("/leveldesigner/tileset.png"),
+        TextureBinder tex = new TextureBinder(SpriteSheet.class.getResourceAsStream("/tileset.png"),
                 tileSheet);
         tex.equals(null);
 
         BufferedImage image = null;
         try {
-            image = ImageIO.read(SpriteSheet.class.getResourceAsStream("/leveldesigner/tileset.png"));
+            image = ImageIO.read(SpriteSheet.class.getResourceAsStream("/tileset.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

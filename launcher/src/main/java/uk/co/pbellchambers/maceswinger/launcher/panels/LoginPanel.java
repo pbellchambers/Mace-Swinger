@@ -61,6 +61,7 @@ public class LoginPanel extends JPanel {
             }
         });
         add(txtUser);
+        txtUser.setEnabled(false);
 
         JLabel lblPassword = new JLabel("Password:");
         lblPassword.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 20));
@@ -89,6 +90,7 @@ public class LoginPanel extends JPanel {
             }
         });
         add(txtPassword);
+        txtPassword.setEnabled(false);
 
         btnLogin = new JButton("Login");
         btnLogin.setFont(new Font(Resources.PTSans.getName(), Font.PLAIN, 14));

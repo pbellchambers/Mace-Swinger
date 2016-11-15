@@ -61,7 +61,7 @@ public class Resources {
             System.setProperty("javax.net.ssl.keyStore", truststore);
             System.setProperty("javax.net.ssl.trustStore", truststore);
             System.out.println("Done\n");
-            gamePath = saveDir + "game/MaceSwinger.jar";
+            gamePath = "Mace-Swinger.jar";
             versionFile = new File(saveDir + "game/version");
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -70,7 +70,7 @@ public class Resources {
 
     private static void loadFonts() throws FontFormatException, IOException {
         System.out.print("- PT Sans.ttf...");
-        PTSans = Font.createFont(Font.TRUETYPE_FONT, Resources.class.getResourceAsStream("/launcher/font/PT Sans.ttf"));
+        PTSans = Font.createFont(Font.TRUETYPE_FONT, Resources.class.getResourceAsStream("/font/PT Sans.ttf"));
         System.out.println(" Done");
         System.out.print("Registering fonts...");
         GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(PTSans);
@@ -88,7 +88,7 @@ public class Resources {
         settingsLogo = Resources.class.getResource("/image/settings.png");
         System.out.println(" Done");
         System.out.print("- shield.png...");
-        shield = Resources.class.getResource("/launcher/icon/shield.png");
+        shield = Resources.class.getResource("/icon/shield.png");
         System.out.println(" Done");
     }
 }
