@@ -1,6 +1,6 @@
 package uk.co.pbellchambers.maceswinger.gui;
 
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Vector4f;
 import uk.co.pbellchambers.maceswinger.client.GameClient;
 import uk.co.pbellchambers.maceswinger.utils.Font;
 

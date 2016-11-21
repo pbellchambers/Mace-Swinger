@@ -1,6 +1,6 @@
 package uk.co.pbellchambers.maceswinger.utils;
 
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Vector4f;
 
 import java.util.Random;
 

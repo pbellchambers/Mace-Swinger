@@ -1,7 +1,5 @@
 package uk.co.pbellchambers.maceswinger.leveldesigner.util;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
 import uk.co.pbellchambers.maceswinger.leveldesigner.Main;
 
 import javax.swing.*;

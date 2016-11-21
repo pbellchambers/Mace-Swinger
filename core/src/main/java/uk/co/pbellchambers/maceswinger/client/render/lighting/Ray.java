@@ -1,6 +1,6 @@
 package uk.co.pbellchambers.maceswinger.client.render.lighting;
 
-import org.lwjgl.util.vector.Vector2f;
+import org.joml.Vector2f;
 
 public class Ray {
 
