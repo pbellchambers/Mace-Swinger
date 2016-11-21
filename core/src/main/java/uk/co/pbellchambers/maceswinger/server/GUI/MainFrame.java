@@ -101,7 +101,7 @@ public class MainFrame extends JFrame implements ServerShell {
             }
 
             private void check(MouseEvent me) {
-                if (listUsers.getSelectedValues().length == 0) {
+                if (listUsers.getSelectedValuesList().size() == 0) {
                     listUsers.setSelectedIndex(listUsers.locationToIndex(me.getPoint()));
                 }
                 if (me.isPopupTrigger() && listUsers.getSelectedIndex() > -1) {
@@ -131,28 +131,28 @@ public class MainFrame extends JFrame implements ServerShell {
                         });
                         popup.add(kickban);
                     } else {
-                        JMenuItem kick = new JMenuItem("Kick " + listUsers.getSelectedValues().length + " players");
+                        JMenuItem kick = new JMenuItem("Kick " + listUsers.getSelectedValuesList().size() + " players");
                         kick.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent arg0) {
-                                for (Object username : listUsers.getSelectedValues()) {
+                                for (Object username : listUsers.getSelectedValuesList()) {
                                     processCommand("/kick" + username);
                                 }
                             }
                         });
                         popup.add(kick);
-                        JMenuItem ban = new JMenuItem("Ban" + listUsers.getSelectedValues().length + " players");
+                        JMenuItem ban = new JMenuItem("Ban" + listUsers.getSelectedValuesList().size() + " players");
                         ban.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent arg0) {
-                                for (Object username : listUsers.getSelectedValues()) {
+                                for (Object username : listUsers.getSelectedValuesList()) {
                                     processCommand("/ban" + username);
                                 }
                             }
                         });
                         popup.add(ban);
-                        JMenuItem kickban = new JMenuItem("Kickban" + listUsers.getSelectedValues().length + " players");
+                        JMenuItem kickban = new JMenuItem("Kickban" + listUsers.getSelectedValuesList().size() + " players");
                         kickban.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent arg0) {
-                                for (Object username : listUsers.getSelectedValues()) {
+                                for (Object username : listUsers.getSelectedValuesList()) {
                                     processCommand("/kick" + username);
                                     processCommand("/ban" + username);
                                 }

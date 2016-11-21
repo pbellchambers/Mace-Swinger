@@ -2,7 +2,6 @@ package uk.co.pbellchambers.maceswinger.utils;
 
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.AL11;
-import org.lwjgl.util.WaveData;
 import uk.co.pbellchambers.maceswinger.Resources;
 
 import java.io.BufferedInputStream;
