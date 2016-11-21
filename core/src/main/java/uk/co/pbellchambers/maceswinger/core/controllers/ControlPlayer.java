@@ -7,6 +7,7 @@ import uk.co.pbellchambers.maceswinger.Components;
 import uk.co.pbellchambers.maceswinger.Vector2;
 import uk.co.pbellchambers.maceswinger.client.render.SpriteRenderer;
 import uk.co.pbellchambers.maceswinger.core.Core;
+import uk.co.pbellchambers.maceswinger.utils.CustomMouse;
 import uk.co.pbellchambers.maceswinger.utils.Keyboard;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -21,7 +22,7 @@ public class ControlPlayer implements Control {
         if (Keyboard.isKeyDown(GLFW_KEY_SPACE)) {
             Jump.jump(e, updateState, velocity);
         }
-        if (Mouse.isButtonDown(0)) {
+        if (CustomMouse.isButtonDown(0)) {
             Attack.attack(e, updateState, direction);
         }
         if (Keyboard.isKeyDown(GLFW_KEY_A)) {

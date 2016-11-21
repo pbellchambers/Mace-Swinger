@@ -3,6 +3,7 @@ package uk.co.pbellchambers.maceswinger.gui.components;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
 import uk.co.pbellchambers.maceswinger.gui.Gui;
+import uk.co.pbellchambers.maceswinger.utils.CustomMouse;
 import uk.co.pbellchambers.maceswinger.utils.Easing;
 import uk.co.pbellchambers.maceswinger.utils.Font;
 import uk.co.pbellchambers.maceswinger.utils.Textures;
@@ -63,7 +64,7 @@ public class GuiDropDown extends GuiComponent {
 
         public boolean isMouseinBounds() {
 
-            if (Mouse.getX() < this.x + width && Mouse.getX() > this.x && Mouse.getY() < this.y + height && Mouse.getY() > this.y) {
+            if (CustomMouse.getX() < this.x + width && CustomMouse.getX() > this.x && CustomMouse.getY() < this.y + height && CustomMouse.getY() > this.y) {
                 System.out.println("in bounds");
                 return true;
             }
@@ -75,10 +76,10 @@ public class GuiDropDown extends GuiComponent {
             ticks++;
             y = Easing.elasticOut(ticks, 0, yTarget, 100);
 
-            if (Mouse.isButtonDown(0) && isMouseinBounds()) {
+            if (CustomMouse.isButtonDown(0) && isMouseinBounds()) {
                 parent.guiActionPerformed(id, 0);
             }
-            if (Mouse.isButtonDown(1) && isMouseinBounds()) {
+            if (CustomMouse.isButtonDown(1) && isMouseinBounds()) {
                 parent.guiActionPerformed(id, 1);
             }
         }

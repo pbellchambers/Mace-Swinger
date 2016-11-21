@@ -9,7 +9,6 @@ public class Keyboard {
 
     public static boolean isKeyDown(int key) {
         return glfwGetKey(GameClient.customDisplay.getWindowHandle(), key) == GLFW_PRESS;
-
     }
 }
 

@@ -2,6 +2,7 @@ package uk.co.pbellchambers.maceswinger.gui.components;
 
 import org.joml.Vector4f;
 import uk.co.pbellchambers.maceswinger.gui.Gui;
+import uk.co.pbellchambers.maceswinger.utils.CustomMouse;
 import uk.co.pbellchambers.maceswinger.utils.Easing;
 import uk.co.pbellchambers.maceswinger.utils.Font;
 
@@ -49,8 +50,8 @@ public class GuiString extends GuiComponent {
 
         public boolean isMouseinBounds() {
 
-            if (Mouse.getX() < this.x + width && Mouse.getX() > this.x
-                    && Mouse.getY() < this.y + height && Mouse.getY() > this.y) {
+            if (CustomMouse.getX() < this.x + width && CustomMouse.getX() > this.x
+                    && CustomMouse.getY() < this.y + height && CustomMouse.getY() > this.y) {
                 return true;
             }
             return false;
@@ -59,7 +60,7 @@ public class GuiString extends GuiComponent {
 
         public void tick() {
             ticks++;
-            if (Mouse.isButtonDown(0) && isMouseinBounds()) {
+            if (CustomMouse.isButtonDown(0) && isMouseinBounds()) {
                 parent.guiActionPerformed(id, 0);
             }
             y = Easing.elasticOut(ticks, 0.0f, yy, easDur + 100);

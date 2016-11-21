@@ -1,5 +1,7 @@
 package uk.co.pbellchambers.maceswinger.utils;
 
+import org.joml.Vector3d;
+import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
 import org.lwjgl.opengl.GL;
@@ -26,7 +28,8 @@ public class CustomDisplay implements WindowListener {
     private static final CharSequence TITLE = "Mace Swinger";
     private long variableYieldTime;
     private long lastTime;
-    private GLFWFramebufferSizeCallback framebufferSizeCallback;
+    private GLFWCursorPosCallback cursorPosCallback;
+    private Vector3d cursorPos;
 
     public void create(boolean isFullscreen) {
         if (!isFullscreen) {
@@ -77,6 +80,15 @@ public class CustomDisplay implements WindowListener {
         }
         glfwMakeContextCurrent(windowHandle);
         GL.createCapabilities();
+        glfwSetCursorPosCallback(windowHandle, (cursorPosCallback = new GLFWCursorPosCallback() {
+
+            @Override
+            public void invoke(long window, double xpos, double ypos) {
+                cursorPos.x = xpos;
+                cursorPos.y = getWindowHeight() - ypos;
+            }
+
+        }));
         glfwShowWindow(windowHandle);
         glfwSetFramebufferSizeCallback(windowHandle, resizeWindow);
         //todo set parent if not fullscreen
@@ -161,6 +173,10 @@ public class CustomDisplay implements WindowListener {
         IntBuffer height = IntBuffer.allocate(1);
         glfwGetFramebufferSize(windowHandle, width, height);
         return height.get();
+    }
+
+    public Vector3d getCursorPos() {
+        return cursorPos;
     }
 
     /**
