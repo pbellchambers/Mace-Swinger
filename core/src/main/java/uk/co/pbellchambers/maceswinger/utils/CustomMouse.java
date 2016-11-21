@@ -1,7 +1,5 @@
 package uk.co.pbellchambers.maceswinger.utils;
 
-import org.lwjgl.input.Mouse;
-
 public class CustomMouse {
 
     public static float getX() {

@@ -1,7 +1,6 @@
 package uk.co.pbellchambers.maceswinger.gui.components;
 
 import org.joml.Vector4f;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import uk.co.pbellchambers.maceswinger.gui.Gui;
 import uk.co.pbellchambers.maceswinger.utils.Easing;

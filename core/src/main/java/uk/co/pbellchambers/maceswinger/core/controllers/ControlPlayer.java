@@ -1,7 +1,5 @@
 package uk.co.pbellchambers.maceswinger.core.controllers;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.magnos.entity.Control;
 import org.magnos.entity.Entity;
 import org.magnos.entity.vals.IntVal;
@@ -9,6 +7,9 @@ import uk.co.pbellchambers.maceswinger.Components;
 import uk.co.pbellchambers.maceswinger.Vector2;
 import uk.co.pbellchambers.maceswinger.client.render.SpriteRenderer;
 import uk.co.pbellchambers.maceswinger.core.Core;
+import uk.co.pbellchambers.maceswinger.utils.Keyboard;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class ControlPlayer implements Control {
 
@@ -17,21 +18,21 @@ public class ControlPlayer implements Control {
         Vector2 velocity = e.get(Core.Components.velocity);
         Vector2 pos = e.get(Components.position);
         IntVal direction = e.get(Components.direction);
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+        if (Keyboard.isKeyDown(GLFW_KEY_SPACE)) {
             Jump.jump(e, updateState, velocity);
         }
         if (Mouse.isButtonDown(0)) {
             Attack.attack(e, updateState, direction);
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+        if (Keyboard.isKeyDown(GLFW_KEY_A)) {
             velocity.x -= 0.5f;
             direction.v = 0;
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+        if (Keyboard.isKeyDown(GLFW_KEY_D)) {
             velocity.x += 0.5f;
             direction.v = 1;
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
+        if (Keyboard.isKeyDown(GLFW_KEY_E)) {
             // open inventory
         }
 

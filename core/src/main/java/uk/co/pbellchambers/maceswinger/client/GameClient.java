@@ -145,9 +145,9 @@ public class GameClient {
             boolean shouldRender = true;
 
             while (delta >= 1) {
-				if (Keyboard.isKeyDown(Keyboard.KEY_LMENU)
-						&& Keyboard.isKeyDown(Keyboard.KEY_F4)) {
-					break;
+                if (Keyboard.isKeyDown(GLFW_KEY_LEFT_ALT)
+                        && Keyboard.isKeyDown(GLFW_KEY_F4)) {
+                    break;
 				}
                 tick();
                 delta -= 1;
@@ -196,11 +196,11 @@ public class GameClient {
 
     private void tick() {
         //System.out.println(fps);
-		if (!Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_P)) {
-			Sound.play(1, 1);
+        if (!Sound.isPlaying[1] && Keyboard.isKeyDown(GLFW_KEY_P)) {
+            Sound.play(1, 1);
 		}
-		if (Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_O)) {
-			Sound.pause(1, 1);
+        if (Sound.isPlaying[1] && Keyboard.isKeyDown(GLFW_KEY_O)) {
+            Sound.pause(1, 1);
 		}
 
         if (!isGamePaused) {
