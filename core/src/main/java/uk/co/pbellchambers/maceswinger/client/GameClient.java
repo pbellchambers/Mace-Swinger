@@ -6,8 +6,9 @@ import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
 import com.moomoohk.Mootilities.OSUtils.OSUtils;
 import org.joml.Vector2f;
-import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.opengl.GL11;
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityList;
@@ -34,11 +35,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 
@@ -105,7 +109,6 @@ public class GameClient {
     private Client client;
     public int ticks;
     public boolean isGamePaused = false;
-    private GLFWErrorCallback errorCallback;
     public static CustomDisplay customDisplay;
 
     public void run() {
@@ -115,7 +118,7 @@ public class GameClient {
 
         customDisplay = new CustomDisplay();
         customDisplay.create(false);
-        AL.create();
+        createALContext();
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         GL11.glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
@@ -177,6 +180,18 @@ public class GameClient {
         internalServer.stop();
         client.stop();
         exit(0);
+    }
+
+    private void createALContext() {
+        ALC.create();
+        // Can call "alc" functions at any time
+        long device = alcOpenDevice((ByteBuffer) null);
+        ALCCapabilities deviceCaps = ALC.createCapabilities(device);
+
+        long context = alcCreateContext(device, (IntBuffer) null);
+        alcMakeContextCurrent(context);
+        AL.createCapabilities(deviceCaps);
+        // Can now call "al" functions
     }
 
     private void tick() {
@@ -441,7 +456,7 @@ public class GameClient {
                 long startTime = System.currentTimeMillis();
                 Textures.deleteAll();
                 Sound.deleteSounds();
-                AL.destroy();
+                ALC.destroy();
                 customDisplay.destroyWindow();
                 customDisplay.terminateGLFW();
                 long endTime = System.currentTimeMillis();
@@ -455,7 +470,7 @@ public class GameClient {
                 long startTime1 = System.currentTimeMillis();
                 Textures.deleteAll();
                 Sound.deleteSounds();
-                AL.destroy();
+                ALC.destroy();
                 customDisplay.destroyWindow();
                 customDisplay.terminateGLFW();
                 long endTime1 = System.currentTimeMillis();

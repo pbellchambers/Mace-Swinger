@@ -3,8 +3,8 @@ package uk.co.pbellchambers.maceswinger.utils;
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.Display;
 import uk.co.pbellchambers.maceswinger.Resources;
+import uk.co.pbellchambers.maceswinger.client.GameClient;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,12 +33,14 @@ public class TextureBinder {
             } catch (FileNotFoundException ex) {
                 System.err.println("Failed to find the texture files. " + URL);
                 ex.printStackTrace();
-                Display.destroy();
+                GameClient.customDisplay.destroyWindow();
+                GameClient.customDisplay.terminateGLFW();
                 System.exit(1);
             } catch (IOException ex) {
                 System.err.println("Failed to load the texture files. " + URL);
                 ex.printStackTrace();
-                Display.destroy();
+                GameClient.customDisplay.destroyWindow();
+                GameClient.customDisplay.terminateGLFW();
                 System.exit(1);
             } finally {
                 if (in != null) {
