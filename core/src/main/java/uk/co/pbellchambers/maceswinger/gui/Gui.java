@@ -47,9 +47,9 @@ public abstract class Gui {
         glColor4f(r, g, b, a);
         glBegin(GL_QUADS);
         glVertex2f(0, 0);
-        glVertex2f(GameClient.width, 0);
-        glVertex2f(GameClient.width, GameClient.height);
-        glVertex2f(0, GameClient.width);
+        glVertex2f(GameClient.WIDTH, 0);
+        glVertex2f(GameClient.WIDTH, GameClient.HEIGHT);
+        glVertex2f(0, GameClient.WIDTH);
         glEnd();
         glPopMatrix();
         glColor4f(1, 1, 1, 1);

@@ -38,15 +38,15 @@ public class GuiMainMenu extends Gui {
     public void render() {
         GL11.glColor4f(1, 1, 1, 1);
         a = Easing.elasticOut(tick, a, 0.00f, 2000);
-        this.renderImage(EnumTextures.BG_Sky.getID(), GameClient.width, GameClient.height, 0, 0);
+        this.renderImage(EnumTextures.BG_Sky.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);
         //this.fillScreen(0,0,1,a);
-        this.renderImage(EnumTextures.BG_Ground.getID(), GameClient.width, GameClient.height, 0, 0);
+        this.renderImage(EnumTextures.BG_Ground.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);
         buttons.render();
-        this.renderImage(EnumTextures.LeftHand.getID(), GameClient.width, GameClient.height, 0, 0);
-        this.renderImage(EnumTextures.Legs.getID(), GameClient.width, GameClient.height, 0, 0);
-        this.renderImage(EnumTextures.Torso.getID(), GameClient.width, GameClient.height, 0, 0);//make it a button?
-        this.renderImage(EnumTextures.Logo.getID(), GameClient.width, GameClient.height, 0, 0);
-        this.renderImage(EnumTextures.Vignette.getID(), GameClient.width, GameClient.height, 0, 0);
+        this.renderImage(EnumTextures.LeftHand.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);
+        this.renderImage(EnumTextures.Legs.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);
+        this.renderImage(EnumTextures.Torso.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);//make it a button?
+        this.renderImage(EnumTextures.Logo.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);
+        this.renderImage(EnumTextures.Vignette.getID(), GameClient.WIDTH, GameClient.HEIGHT, 0, 0);
         //logo.render();
         super.render();
     }

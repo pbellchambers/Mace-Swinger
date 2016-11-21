@@ -1,7 +1,5 @@
 package uk.co.pbellchambers.maceswinger.leveldesigner;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import uk.co.pbellchambers.maceswinger.leveldesigner.util.CustomDisplay;
 import uk.co.pbellchambers.maceswinger.leveldesigner.util.SpriteSheet;

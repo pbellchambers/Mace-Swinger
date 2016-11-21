@@ -38,28 +38,18 @@ public class CustomDisplay implements WindowListener {
 
             System.out.println(Main.canvas.isDisplayable());
 
-            try {
-                Display.setParent(Main.canvas);
-                Display.create();
-            } catch (LWJGLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Display.setParent(Main.canvas);
+            Display.create();
         } else {
+            Display.setFullscreen(true);
 
-            try {
-                Display.setFullscreen(true);
-
-                Display.setTitle("Mace Swinger");
-                Display.create();
-                Display.setResizable(true);
-                System.out.println(Display.getDesktopDisplayMode().toString());
-                setyScale(Main.height / Display.getHeight());
-                setxScale(Main.width / Display.getWidth());
-                // Display.setParent(game.window);
-            } catch (LWJGLException e) {
-                System.err.println("Display creation failed :(");
-            }
+            Display.setTitle("Mace Swinger");
+            Display.create();
+            Display.setResizable(true);
+            System.out.println(Display.getDesktopDisplayMode().toString());
+            setyScale(Main.height / Display.getHeight());
+            setxScale(Main.width / Display.getWidth());
+            // Display.setParent(game.window);
         }
         setyScale(Main.height / Display.getHeight());
         setxScale(Main.width / Display.getWidth());

@@ -6,10 +6,8 @@ import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
 import com.moomoohk.Mootilities.OSUtils.OSUtils;
 import org.joml.Vector2f;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityList;
@@ -40,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 
@@ -56,7 +55,8 @@ public class GameClient {
     private int fps;
     private static boolean fullscreen;
     private static boolean VSync;
-    public static final float width = 1920 / 2, height = 1080 / 2;
+    public static final float WIDTH = 1920 / 2;
+    public static final float HEIGHT = 1080 / 2;
     private Gui HUD;
     private Gui gui;
     public static JFrame frame;
@@ -105,17 +105,20 @@ public class GameClient {
     private Client client;
     public int ticks;
     public boolean isGamePaused = false;
+    private GLFWErrorCallback errorCallback;
+    public static CustomDisplay customDisplay;
 
-    public void run() throws LWJGLException {
+    public void run() {
 
-        // fullscreen=true;
         canvas = new Canvas();
         frame = new JFrame();
-        new CustomDisplay().create(fullscreen);
+
+        customDisplay = new CustomDisplay();
+        customDisplay.create(false);
         AL.create();
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0, width, 0, height, 1, -1);
+        GL11.glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
@@ -130,7 +133,7 @@ public class GameClient {
 
         long lastTimer = System.currentTimeMillis();
         double delta = 0;
-        while (!Display.isCloseRequested()) {
+        while (!glfwWindowShouldClose(customDisplay.getWindowHandle())) {
 
             long now = System.nanoTime();
             delta += (now - lastTime) / nsPerTick;
@@ -247,14 +250,14 @@ public class GameClient {
                 light.walls.add(new Wall(new Point(vertices[3], 0, 0),
                         new Point(vertices[0], 0, 0)));
             }
-            light.walls.add(new Wall(new Point(new Vector2f(width - x, height - y), 0, 0),
-                    new Point(new Vector2f(width - x, height + y), 0, 0)));
-            light.walls.add(new Wall(new Point(new Vector2f(0, height), 0, 0),
-                    new Point(new Vector2f(width + x, height + y), 0, 0)));
-            light.walls.add(new Wall(new Point(new Vector2f(width + x, height + y), 0,
-                    0), new Point(new Vector2f(width + x, height - y), 0, 0)));
-            light.walls.add(new Wall(new Point(new Vector2f(width + x, height - y), 0, 0),
-                    new Point(new Vector2f(width - x, height - y), 0, 0)));
+            light.walls.add(new Wall(new Point(new Vector2f(WIDTH - x, HEIGHT - y), 0, 0),
+                    new Point(new Vector2f(WIDTH - x, HEIGHT + y), 0, 0)));
+            light.walls.add(new Wall(new Point(new Vector2f(0, HEIGHT), 0, 0),
+                    new Point(new Vector2f(WIDTH + x, HEIGHT + y), 0, 0)));
+            light.walls.add(new Wall(new Point(new Vector2f(WIDTH + x, HEIGHT + y), 0,
+                    0), new Point(new Vector2f(WIDTH + x, HEIGHT - y), 0, 0)));
+            light.walls.add(new Wall(new Point(new Vector2f(WIDTH + x, HEIGHT - y), 0, 0),
+                    new Point(new Vector2f(WIDTH - x, HEIGHT - y), 0, 0)));
 
             for (Wall wall : light.walls) {
                 light.points.add(new Point(wall.start.pos, 0, 0));
@@ -299,8 +302,8 @@ public class GameClient {
         for (Light light : lights) {
             glUseProgram(lightProgram);
             glUniform2f(glGetUniformLocation(lightProgram, "lightLocation"),
-                    (light.location.getX() - x) / CustomDisplay.getxScale(),
-                    (light.location.getY() - y) / CustomDisplay.getyScale());
+                    (light.location.x() - x) / CustomDisplay.getxScale(),
+                    (light.location.y() - y) / CustomDisplay.getyScale());
             glUniform3f(glGetUniformLocation(lightProgram, "lightColor"),
                     light.red, light.green, light.blue);
             glUniform1f(glGetUniformLocation(lightProgram, "lightRadius"),
@@ -388,15 +391,16 @@ public class GameClient {
 			resize(canvas.getWidth(), canvas.getHeight());
 		}
 		if (VSync) {
-			Display.sync(60);
-		}
-        Display.update();
+            customDisplay.sync(60);
+        }
+        glfwPollEvents();
+        glfwSwapBuffers(customDisplay.getWindowHandle());
     }
 
     private void resize(int i, int j) {
         GL11.glViewport(0, 0, i, j);
-        CustomDisplay.setyScale(GameClient.height / Display.getHeight());
-        CustomDisplay.setxScale(GameClient.width / Display.getWidth());
+        CustomDisplay.setyScale(GameClient.HEIGHT / customDisplay.getWindowHeight());
+        CustomDisplay.setxScale(GameClient.WIDTH / customDisplay.getWindowWidth());
     }
 
     private void init() {
@@ -412,7 +416,7 @@ public class GameClient {
         long time = endTime - startTime;
         System.out.println("Loaded in: " + time + " ms");
 
-        gui = new GuiMainMenu(this, (int) width, (int) height);
+        gui = new GuiMainMenu(this, (int) WIDTH, (int) HEIGHT);
 
     }
 
@@ -438,7 +442,8 @@ public class GameClient {
                 Textures.deleteAll();
                 Sound.deleteSounds();
                 AL.destroy();
-                Display.destroy();
+                customDisplay.destroyWindow();
+                customDisplay.terminateGLFW();
                 long endTime = System.currentTimeMillis();
                 long time = endTime - startTime;
                 System.out.println("Exited in: " + time + " ms");
@@ -451,7 +456,8 @@ public class GameClient {
                 Textures.deleteAll();
                 Sound.deleteSounds();
                 AL.destroy();
-                Display.destroy();
+                customDisplay.destroyWindow();
+                customDisplay.terminateGLFW();
                 long endTime1 = System.currentTimeMillis();
                 long time1 = endTime1 - startTime1;
                 System.out.println("Exited in: " + time1 + " ms");
@@ -464,8 +470,8 @@ public class GameClient {
     public void startGame() {
 
         for (int i = 1; i <= 1; i++) {
-            Vector2f location = new Vector2f((float) Math.random() * width,
-                    (float) Math.random() * height);
+            Vector2f location = new Vector2f((float) Math.random() * WIDTH,
+                    (float) Math.random() * HEIGHT);
             lights.add(new Light(location, 20, 1,
                     1, 1));
         }
@@ -581,10 +587,6 @@ public class GameClient {
 
         System.setProperty("org.lwjgl.librarypath", new File("libs").getAbsolutePath());
 
-        try {
-            new GameClient().run();
-        } catch (LWJGLException e) {
-            e.printStackTrace();
-        }
+        new GameClient().run();
     }
 }
