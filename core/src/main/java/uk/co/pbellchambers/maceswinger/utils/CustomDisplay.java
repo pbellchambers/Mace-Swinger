@@ -72,9 +72,9 @@ public class CustomDisplay implements WindowListener {
         System.out.println(GameClient.canvas.isDisplayable());
 
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-        //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); - only in 3.2 and above
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
         windowHandle = glfwCreateWindow(Math.round(GameClient.WIDTH), Math.round(GameClient.HEIGHT), TITLE, 0, 0);
         if (windowHandle == 0) {
             throw new RuntimeException("Failed to create windowHandle");

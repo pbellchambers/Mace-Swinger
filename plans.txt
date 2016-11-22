@@ -4,7 +4,7 @@ music
 make sun/light move on its own
 nicer textures
 convert gui to opengl (nuklear?)
-Port to openGL 3.3
+Use opengl core compatability mode
 fullscreen
 
 
