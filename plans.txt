@@ -1,14 +1,11 @@
-fix parent issue
-fix other modules
-Update keyboard detection to use callbacks
 refactor out stuff so it's not all in one massive gameclient
 make background look like skye
-Port to openGL 3.3
-fullscreen
 music
 make sun/light move on its own
 nicer textures
-
+convert gui to opengl (nuklear?)
+Port to openGL 3.3
+fullscreen
 
 
 
