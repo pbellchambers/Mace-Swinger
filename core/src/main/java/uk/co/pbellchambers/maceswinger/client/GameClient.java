@@ -110,6 +110,8 @@ public class GameClient {
     public int ticks;
     public boolean isGamePaused = false;
     public static CustomDisplay customDisplay;
+    private static long alDevice;
+    private static long alContext;
 
     public void run() {
 
@@ -119,7 +121,7 @@ public class GameClient {
         customDisplay = new CustomDisplay();
         customDisplay.create(false);
         createALContext();
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        glMatrixMode(GL_PROJECTION);
         GL11.glLoadIdentity();
         GL11.glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -183,15 +185,19 @@ public class GameClient {
     }
 
     private void createALContext() {
-        ALC.create();
         // Can call "alc" functions at any time
-        long device = alcOpenDevice((ByteBuffer) null);
-        ALCCapabilities deviceCaps = ALC.createCapabilities(device);
+        alDevice = alcOpenDevice((ByteBuffer) null);
+        ALCCapabilities deviceCaps = ALC.createCapabilities(alDevice);
 
-        long context = alcCreateContext(device, (IntBuffer) null);
-        alcMakeContextCurrent(context);
+        alContext = alcCreateContext(alDevice, (IntBuffer) null);
+        alcMakeContextCurrent(alContext);
         AL.createCapabilities(deviceCaps);
         // Can now call "al" functions
+    }
+
+    private static void destroyALContext() {
+        alcDestroyContext(alContext);
+        alcCloseDevice(alDevice);
     }
 
     private void tick() {
@@ -455,7 +461,7 @@ public class GameClient {
                 long startTime = System.currentTimeMillis();
                 Textures.deleteAll();
                 Sound.deleteSounds();
-                ALC.destroy();
+                destroyALContext();
                 customDisplay.destroyWindow();
                 customDisplay.terminateGLFW();
                 long endTime = System.currentTimeMillis();
@@ -469,7 +475,7 @@ public class GameClient {
                 long startTime1 = System.currentTimeMillis();
                 Textures.deleteAll();
                 Sound.deleteSounds();
-                ALC.destroy();
+                destroyALContext();
                 customDisplay.destroyWindow();
                 customDisplay.terminateGLFW();
                 long endTime1 = System.currentTimeMillis();

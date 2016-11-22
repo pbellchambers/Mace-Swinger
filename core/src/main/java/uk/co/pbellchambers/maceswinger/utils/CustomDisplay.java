@@ -1,6 +1,7 @@
 package uk.co.pbellchambers.maceswinger.utils;
 
 import org.joml.Vector3d;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
@@ -29,7 +30,7 @@ public class CustomDisplay implements WindowListener {
     private long variableYieldTime;
     private long lastTime;
     private GLFWCursorPosCallback cursorPosCallback;
-    private Vector3d cursorPos;
+    private Vector3d cursorPos = new Vector3d();
 
     public void create(boolean isFullscreen) {
         if (!isFullscreen) {
@@ -71,9 +72,9 @@ public class CustomDisplay implements WindowListener {
         System.out.println(GameClient.canvas.isDisplayable());
 
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); - only in 3.2 and above
         windowHandle = glfwCreateWindow(Math.round(GameClient.WIDTH), Math.round(GameClient.HEIGHT), TITLE, 0, 0);
         if (windowHandle == 0) {
             throw new RuntimeException("Failed to create windowHandle");
@@ -162,17 +163,17 @@ public class CustomDisplay implements WindowListener {
     }
 
     public float getWindowWidth() {
-        IntBuffer width = IntBuffer.allocate(1);
-        IntBuffer height = IntBuffer.allocate(1);
+        IntBuffer width = BufferUtils.createIntBuffer(1);
+        IntBuffer height = BufferUtils.createIntBuffer(1);
         glfwGetFramebufferSize(windowHandle, width, height);
-        return width.get();
+        return width.get(0);
     }
 
     public float getWindowHeight() {
-        IntBuffer width = IntBuffer.allocate(1);
-        IntBuffer height = IntBuffer.allocate(1);
+        IntBuffer width = BufferUtils.createIntBuffer(1);
+        IntBuffer height = BufferUtils.createIntBuffer(1);
         glfwGetFramebufferSize(windowHandle, width, height);
-        return height.get();
+        return height.get(0);
     }
 
     public Vector3d getCursorPos() {

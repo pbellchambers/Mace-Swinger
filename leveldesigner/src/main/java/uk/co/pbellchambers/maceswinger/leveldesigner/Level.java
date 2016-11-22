@@ -56,7 +56,7 @@ public class Level {
             for (int y = height - 1; y >= 0; y--) {
                 for (int x = 0; x < width; x++) {
                     writer.write(getTile(x, y).getC());
-                    //if(x==width-1)writer.write(";\n");
+                    //if(x==WIDTH-1)writer.write(";\n");
                 }
                 writer.write(";\n");
             }

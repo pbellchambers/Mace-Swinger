@@ -36,16 +36,28 @@ allprojects {
         mavenCentral()
     }
 
+    project.ext.lwjglVersion = '3.1.0'
+
     dependencies {
         compile group: 'com.esotericsoftware', name: 'kryo', version: '4.0.0'
         compile group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
         compile group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
         compile group: 'com.miglayout', name: 'miglayout-swing', version: '5.0'
-        compile group: 'org.lwjgl', name: 'lwjgl', version: '3.1.0'
-        compile group: 'org.lwjgl', name: 'lwjgl-glfw', version: '3.1.0'
-        compile group: 'org.lwjgl', name: 'lwjgl-openal', version: '3.1.0'
-        compile group: 'org.lwjgl', name: 'lwjgl-opengl', version: '3.1.0'
+        compile group: 'org.lwjgl', name: 'lwjgl', version: "${lwjglVersion}"
+        compile group: 'org.lwjgl', name: 'lwjgl-glfw', version: "${lwjglVersion}"
+        compile group: 'org.lwjgl', name: 'lwjgl-openal', version: "${lwjglVersion}"
+        compile group: 'org.lwjgl', name: 'lwjgl-opengl', version: "${lwjglVersion}"
         compile group: 'org.joml', name: 'joml', version: '1.9.0'
+        // LWJGL natives
+        runtime "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+        runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
+        runtime "org.lwjgl:lwjgl-openal:${lwjglVersion}:natives-windows"
+        runtime "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+        runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
+        runtime "org.lwjgl:lwjgl-openal:${lwjglVersion}:natives-linux"
+        runtime "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+        runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
+        runtime "org.lwjgl:lwjgl-openal:${lwjglVersion}:natives-macos"
 
         compile fileTree(dir: 'src/main/resources/lib', include: ['*.jar'])
         compile fileTree(dir: 'src/main/resources/lib/launcher', include: ['*.jar'])
