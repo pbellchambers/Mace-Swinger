@@ -254,7 +254,7 @@ public class GameClient {
         int n = 0;
         for (Light light : lights) {
 			if (n == 0) {
-                light.location.set(new Vector2f(CustomMouse.getX() + x, CustomMouse.getY() + y));
+                light.location.set(new Vector2f(575, 375));
             }
             n++;
             light.clear();
